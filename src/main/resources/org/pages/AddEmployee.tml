@@ -1,0 +1,26 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
+<head>
+    <title>Add Employee</title>
+</head>
+<body class="container">
+<t:header />
+<h2>Add New Employee</h2>
+
+<form t:type="form" t:id="addEmployeeForm">
+    <label>Name:</label>
+    <input t:type="textfield" t:value="name"/>
+
+    <label>Age:</label>
+    <input t:type="textfield" t:value="age"/>
+
+    <label>Address:</label>
+    <input t:type="textfield" t:value="address"/>
+
+    <input t:type="submit" value="Add Employee"/>
+</form>
+
+<t:pagelink page="CoreComponentsPractice">Core Components Practice Page</t:pagelink><br></br>
+
+<p t:if="errorMessage">${errorMessage}</p>
+</body>
+</html>

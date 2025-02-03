@@ -1,0 +1,23 @@
+package org.data.services;
+
+import org.data.dao.EmployeeDao;
+import org.data.entities.Employee;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class EmployeeServiceImpl implements EmployeeService {
+
+    @Autowired
+    private EmployeeDao employeeDao;
+
+    @Override
+    public void saveEmployee(Employee employee) {
+        employeeDao.saveEmployee(employee);
+    }
+
+    @Override
+    public Employee findEmployeeById(int employeeId) {
+       return employeeDao.findEmployeeById(employeeId);
+    }
+}

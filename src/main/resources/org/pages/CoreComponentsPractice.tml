@@ -1,0 +1,78 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/CoreComponentsPractice.css"/>
+    <style type="text/css">
+        form        { text-align: center; }
+        table       { font-family: Arial, Helvetica, sans-serif;  font-size: 13px; font-weight: normal; margin: auto; }
+        th          { background-color: #bee; text-align: center; padding: 10px 10px; }
+        td          { background-color: #eeb; text-align: left; padding: 10px 10px; }
+        td.name     { text-align: right; vertical-align: top; }
+        div.t-palette { width: 460px; }
+        .datePicker td .topLabel { color:black; }
+    </style>
+</head>
+<body class="container">
+<t:header />
+<h2>Core Components Practice Page</h2>
+
+<div class="eg">
+        <t:Form t:id="inputs">
+            <table>
+                <tr>
+                    <th>Component Name</th>
+                    <th>Use them and press Submit</th>
+                    <th>Submitted Value</th>
+                </tr>
+                <tr>
+                    <td class="name">Checkbox:</td>
+                    <td><t:Checkbox t:id="checkboxValue" type="checkbox"/></td>
+                    <td>${checkboxValue}</td>
+                </tr>
+                <tr>
+                     <td class="name">Checklist:</td>
+                     <td><t:Checklist t:id="checklist" t:model="stationery" t:selected="checklistSelectedValues" t:encoder="stringValueEncoder"/></td>
+                     <td>${checklistSelectedValues}</td>
+                </tr>
+                 <tr>
+                      <td class="name">DateField:</td>
+                      <td><t:DateField t:id="dateField"/></td>
+                  </tr>
+                  <tr>
+                       <td class="name">Palette:</td>
+                       <td>
+                       <t:Palette t:id="palette" t:model="pets" t:selected="paletteValues" t:encoder="stringValueEncoder" />
+                       </td>
+                       <td>${paletteValues}</td>
+                  </tr>
+
+                  <tr>
+                  <td class="name">Select:</td>
+                  <td>
+                  <t:Select t:id="select" t:model="literal:Mr,Mrs,Ms,Dr,Prof" t:value="selectValue"/>
+                  </td>
+                  <td>${selectValue}</td>
+                  </tr>
+
+                  <tr>
+                  <td class="name">TextField:</td>
+                  <td>
+                  <t:TextField t:id="textField"  t:value="textField"/>
+                  </td>
+                </tr>
+
+                <tr>
+                <td class="name">TextArea:</td>
+                <td>
+                <t:TextArea t:id="textArea" t:value="textArea"/>
+                </td>
+                </tr>
+
+            </table>
+            <br/>
+           <t:submit/>
+        </t:Form>
+</div>
+<t:pagelink page="Index">Home</t:pagelink><br/><br/>
+</body>
+</html>
