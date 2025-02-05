@@ -16,6 +16,9 @@
     <label>Address:</label>
     <input t:type="textfield" t:value="address"/>
 
+    <label>Password:</label>
+    <input t:type="passwordfield" t:value="password"/>
+
     <input t:type="submit" value="Add Employee"/>
 </form>
 

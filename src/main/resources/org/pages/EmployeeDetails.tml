@@ -7,14 +7,16 @@
 <h2>Employee Details</h2>
 
 <!-- Tapestry Grid component for displaying employee details -->
-<t:grid source="employees" row="employee" add="action" rowsPerPage="5" pagerPosition="top">
+<t:grid source="employees" row="employee" add="action" exclude="Password" rowsPerPage="5" pagerPosition="top">
     <p:actionCell>
         <t:pagelink page="EmployeeDetailsView" context="employee.id">View Details  </t:pagelink>
         <t:pagelink page="EditEmployee" context="employee.id">  Edit</t:pagelink>
+         <t:pagelink page="DeleteEmployee" context="employee.id">  Delete </t:pagelink>
     </p:actionCell>
 </t:grid>
 
-<t:pagelink page="AddEmployee">Add New Employee</t:pagelink>
+<t:pagelink page="AddEmployee">Add New Employee </t:pagelink><br />
+<t:pagelink page="Index"> Back to Home</t:pagelink>
 
 </body>
 </html>

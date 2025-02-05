@@ -13,8 +13,6 @@
         <p><strong>Address:</strong> ${employee.address}</p>
     </div>
 
-    <p t:if="!employee">Employee not found.</p>
-
     <t:pagelink page="EmployeeDetails">Back to Employee List</t:pagelink>
 </body>
 </html>

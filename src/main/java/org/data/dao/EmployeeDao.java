@@ -15,4 +15,6 @@ public interface EmployeeDao {
     List<Employee> getAllEmployees();
 
     boolean authenticate(String userName, String password);
+
+    void deleteEmployee(int id);
 }

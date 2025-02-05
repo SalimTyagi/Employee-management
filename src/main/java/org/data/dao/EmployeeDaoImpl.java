@@ -22,7 +22,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Transaction transaction = null;
         try(Session session = sessionFactory.openSession()){
              transaction = session.beginTransaction();
-             session.save(employee);
+             session.saveOrUpdate(employee);
              transaction.commit();
         }catch (HibernateException ex){
             if (transaction != null) {
@@ -64,6 +64,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
                     .setParameter("username", userName)
                     .uniqueResult();
             return employee != null && employee.getPassword().equals(password);
+        }
+    }
+
+    @Override
+    public void deleteEmployee(int id) {
+        Transaction transaction = null;
+        try(Session session = sessionFactory.openSession()){
+           transaction = session.beginTransaction();
+           Employee employee = session.get(Employee.class,id);
+           if(employee!=null){
+               session.delete(employee);
+           }else {
+               System.out.println("No Employee found with ID :"+id);
+           }
+           transaction.commit();
+        }catch (HibernateException ex){
+            if(transaction!=null){
+                transaction.rollback();
+            }
+            ex.printStackTrace();
         }
     }
 }

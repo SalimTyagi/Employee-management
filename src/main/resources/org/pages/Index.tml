@@ -1,9 +1,16 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 <head>
     <title>Login</title>
+    <style>
+            .error {
+                color: red;
+                font-weight: bold;
+            }
+        </style>
 </head>
 <body class="container">
 <t:header />
+<p>${message:greeting}</p>
 <h2>Login Page</h2>
     <form t:type="form" t:id="loginForm">
         <div>

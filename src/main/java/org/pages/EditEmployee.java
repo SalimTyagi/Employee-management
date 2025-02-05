@@ -3,6 +3,7 @@ package org.pages;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.ActivationRequestParameter;
+import org.apache.tapestry5.commons.Messages;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.data.entities.Employee;
@@ -24,6 +25,12 @@ public class EditEmployee {
 
     @Property
     private String address;
+
+    @Property
+    private String password;
+
+    @Inject
+    private Messages messages;
 
     @Property
     private String errorMessage;
@@ -50,6 +57,7 @@ public class EditEmployee {
             this.name = employee.getName();
             this.age = employee.getAge();
             this.address = employee.getAddress();
+            this.password=employee.getPassword();
         }
     }
 
@@ -59,7 +67,7 @@ public class EditEmployee {
 
     public void onValidateFromEditEmployeeForm() {
         if (!isValidInput()) {
-            errorMessage = "Invalid input. Please check the fields and try again.";
+            errorMessage = messages.get("invalid input");
             editEmployeeForm.recordError(errorMessage);
         }
     }
@@ -69,6 +77,7 @@ public class EditEmployee {
             employee.setName(name);
             employee.setAge(age);
             employee.setAddress(address);
+            employee.setPassword(password);
             employeeService.saveEmployee(employee);
             return EmployeeDetails.class;
         }

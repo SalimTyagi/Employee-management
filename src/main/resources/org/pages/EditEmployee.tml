@@ -19,6 +19,10 @@
         <label for="address">Address:</label>
         <input t:type="textfield" t:id="address" t:value="address" />
     </div>
+     <div>
+           <label for="password">Password:</label>
+           <input t:type="passwordfield" t:id="password" t:value="password" />
+     </div>
     <div>
         <input t:type="submit" value="Save Changes" />
     </div>
