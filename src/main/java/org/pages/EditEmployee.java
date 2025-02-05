@@ -76,16 +76,6 @@ public class EditEmployee {
         return this;
     }
 
-    private Employee findEmployeeById(int id) {
-        List<Employee> employees = EmployeeDetails.getEmployeesList();
-        for (Employee emp : employees) {
-            if (emp.getId() == id) {
-                return emp;
-            }
-        }
-        return null;
-    }
-
     private boolean isValidInput() {
         return name != null && !name.trim().isEmpty() &&
                 age > 0 &&

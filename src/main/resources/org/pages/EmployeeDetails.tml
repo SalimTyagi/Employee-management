@@ -8,9 +8,10 @@
 
 <!-- Tapestry Grid component for displaying employee details -->
 <t:grid source="employees" row="employee" add="action" rowsPerPage="5" pagerPosition="top">
-  <p:actionCell>
-       <t:pagelink page="EditEmployee" context="employee.id" href="#">Edit</t:pagelink>
-  </p:actionCell>
+    <p:actionCell>
+        <t:pagelink page="EmployeeDetailsView" context="employee.id">View Details  </t:pagelink>
+        <t:pagelink page="EditEmployee" context="employee.id">  Edit</t:pagelink>
+    </p:actionCell>
 </t:grid>
 
 <t:pagelink page="AddEmployee">Add New Employee</t:pagelink>

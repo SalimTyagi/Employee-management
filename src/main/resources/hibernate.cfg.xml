@@ -7,8 +7,8 @@
     <session-factory>
         <property name="connection.url">jdbc:postgresql://localhost/employeedb1</property> <!-- BD Mane -->
         <property name="connection.driver_class">org.postgresql.Driver</property> <!-- DB Driver -->
-        <property name="connection.username">imsdev</property> <!-- DB User -->
-        <property name="connection.password">admin</property> <!-- DB Password -->
+        <property name="connection.username">imsdev2</property> <!-- DB User -->
+        <property name="connection.password">root</property> <!-- DB Password -->
 
         <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property> <!-- DB Dialect -->
         <property name="hbm2ddl.auto">update</property> <!-- create / create-drop / update -->

@@ -19,15 +19,19 @@ public class Employee {
     @Column
     private String address;
 
+    @Column
+    private String password;
+
     public Employee(){
 
     }
 
-    public Employee(int id, String name, int age, String address) {
+    public Employee(int id, String name, int age, String address, String password) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
+        this.password = password;
     }
 
     // Getters and Setters
@@ -38,6 +42,15 @@ public class Employee {
     public void setName(String name) { this.name = name; }
 
     public int getAge() { return age; }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setAge(int age) { this.age = age; }
 
     public String getAddress() { return address; }

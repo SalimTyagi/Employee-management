@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -15,51 +16,54 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Autowired
     private SessionFactory sessionFactory;
 
-//    static {
-//        try {
-//            sessionFactory = new Configuration().configure().buildSessionFactory();
-//        } catch (Throwable ex) {
-//            System.err.println("Failed to create sessionFactory object." + ex);
-//            throw new ExceptionInInitializerError(ex);
-//        }
-//    }
-
     @Override
     public void saveEmployee(Employee employee) {
 
-        Session session = sessionFactory.openSession();
-        Transaction tx = null;
-
-        try {
-            tx = session.beginTransaction();
-            session.save(employee);
-            tx.commit();
-        } catch (HibernateException e) {
-            if (tx!=null) tx.rollback();
-            e.printStackTrace();
-        } finally {
-            session.close();
+        Transaction transaction = null;
+        try(Session session = sessionFactory.openSession()){
+             transaction = session.beginTransaction();
+             session.save(employee);
+             transaction.commit();
+        }catch (HibernateException ex){
+            if (transaction != null) {
+                transaction.rollback(); // Ensure rollback on failure
+            }
+            ex.printStackTrace();
         }
-
     }
 
     @Override
     public Employee findEmployeeById(int id) {
 
-        Session session = sessionFactory.getCurrentSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Employee> criteriaQuery = criteriaBuilder.createQuery(Employee.class);
-        Root<Employee> employeeRoot = criteriaQuery.from(Employee.class);
-        criteriaQuery.select(employeeRoot);
+        try(Session session = sessionFactory.openSession()){
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Employee> employeeCriteriaQuery= criteriaBuilder.createQuery(Employee.class);
+            Root<Employee> employeeRoot = employeeCriteriaQuery.from(Employee.class);
+            employeeCriteriaQuery.select(employeeRoot).where(criteriaBuilder.equal(employeeRoot.get("id"),id));
+            Query<Employee> query= session.createQuery(employeeCriteriaQuery);
+            return query.uniqueResult();
+        }
+    }
 
-        Query<Employee> employeeQuery = session.createQuery(criteriaQuery);
-        return employeeQuery.list().get(0);
+    @Override
+    public List<Employee> getAllEmployees() {
+       try(Session session = sessionFactory.openSession()){
+           CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+           CriteriaQuery<Employee> employeeCriteriaQuery= criteriaBuilder.createQuery(Employee.class);
+           Root<Employee> employeeRoot = employeeCriteriaQuery.from(Employee.class);
+           employeeCriteriaQuery.select(employeeRoot);
+           Query<Employee> query= session.createQuery(employeeCriteriaQuery);
+           return query.list();
+       }
+    }
 
-
-
-//        return sessionFactory.getCurrentSession()
-//                .createQuery("FROM Employee e WHERE e.id = :id", Employee.class)
-//                .setParameter("id", id)
-//                .uniqueResult();
+    @Override
+    public boolean authenticate(String userName, String password) {
+        try(Session session = sessionFactory.openSession()) {
+            Employee employee = (Employee) session.createQuery("FROM Employee e WHERE e.name = :username")
+                    .setParameter("username", userName)
+                    .uniqueResult();
+            return employee != null && employee.getPassword().equals(password);
+        }
     }
 }

@@ -1,0 +1,20 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
+<head>
+    <title>Employee Details</title>
+</head>
+<body class="container">
+    <t:header />
+    <h2>Employee Details</h2>
+
+    <div t:if="employee">
+        <p><strong>ID:</strong> ${employee.id}</p>
+        <p><strong>Name:</strong> ${employee.name}</p>
+        <p><strong>Age:</strong> ${employee.age}</p>
+        <p><strong>Address:</strong> ${employee.address}</p>
+    </div>
+
+    <p t:if="!employee">Employee not found.</p>
+
+    <t:pagelink page="EmployeeDetails">Back to Employee List</t:pagelink>
+</body>
+</html>

@@ -5,6 +5,8 @@ import org.data.entities.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -18,6 +20,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee findEmployeeById(int employeeId) {
-       return employeeDao.findEmployeeById(employeeId);
+
+        return employeeDao.findEmployeeById(employeeId);
+    }
+
+    @Override
+    public List<Employee> getAllEmployees() {
+        return employeeDao.getAllEmployees();
     }
 }

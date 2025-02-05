@@ -20,6 +20,8 @@ public class AddEmployee {
 
     @Property
     private String address;
+    @Property
+    private String password;
 
     @Property
     private String errorMessage;
@@ -42,9 +44,7 @@ public class AddEmployee {
 
     public Object onSuccessFromAddEmployeeForm() {
         if (isValidInput()) {
-            List<Employee> employees = EmployeeDetails.getEmployeesList();
-            Employee employee = new Employee(employees.size() + 1, name, age, address);
-            employees.add(employee);
+            Employee employee = new Employee(0, name, age, address,password);
             employeeService.saveEmployee(employee);
             return linkSource.createPageRenderLink(EmployeeDetails.class);
         }
