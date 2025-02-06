@@ -21,25 +21,17 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-//    @ManyToMany
-//    @JoinTable(
-//            name = "employee_permissions",
-//            joinColumns = @JoinColumn(name = "employee_id"),
-//            inverseJoinColumns = @JoinColumn(name = "permission_id")
-//    )
-//    private Set<Permission> permissions;
+    @ManyToMany
+    @JoinTable(
+            name = "employee_permissions",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id")
+    )
+    private Set<Permission> permissions;
 
     public Employee(){
 
     }
-
-//    public Employee(int id, String name, int age, String address, String password) {
-//        this.id = id;
-//        this.name = name;
-//        this.age = age;
-//        this.address = address;
-//        this.password = password;
-//    }
 
     public Employee(int id, String name, int age, String address, String password, Role role) {
         this.id = id;
@@ -79,13 +71,13 @@ public class Employee {
     public void setRole(Role role) {
         this.role = role;
     }
-//
-//    public Set<Permission> getPermissions() {
-//        return permissions;
-//    }
-//
-//    public void setPermissions(Set<Permission> permissions) {
-//        this.permissions = permissions;
-//    }
+
+    public Set<Permission> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Permission> permissions) {
+        this.permissions = permissions;
+    }
 
 }

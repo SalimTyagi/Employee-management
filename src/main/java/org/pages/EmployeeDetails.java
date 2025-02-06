@@ -16,7 +16,7 @@ public class EmployeeDetails {
     @Inject
     private EmployeeService employeeService;
 
-    public List<Employee> getEmployees(){
+    public List<Employee> getEmployees() {
         return employeeService.getAllEmployees();
     }
 

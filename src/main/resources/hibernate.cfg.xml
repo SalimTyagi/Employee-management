@@ -20,6 +20,8 @@
 
 
         <mapping class="org.data.entities.Employee"/>
+        <mapping class="org.data.entities.Role"/>
+        <mapping class="org.data.entities.Permission"/>
 
     </session-factory>
 </hibernate-configuration>
