@@ -50,7 +50,7 @@ public class EditEmployee {
         }
     }
 
-    public void onActivate(int employeeId) {
+    public void onPrepare(int employeeId) {
         this.employeeId = employeeId;
         this.employee = employeeService.findEmployeeById(employeeId);
         if (employee != null) {
@@ -59,6 +59,11 @@ public class EditEmployee {
             this.address = employee.getAddress();
             this.password=employee.getPassword();
         }
+    }
+
+    public void onActivate(int employeeId) {
+        this.employeeId = employeeId;
+        this.employee = employeeService.findEmployeeById(employeeId);
     }
 
     public int onPassivate() {

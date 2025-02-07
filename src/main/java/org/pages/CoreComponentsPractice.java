@@ -25,7 +25,7 @@ public class CoreComponentsPractice {
     private Date dateField;
 
     @Property
-    private List<String> paletteValues = new ArrayList<>();;
+    private List<String> paletteValues = new ArrayList<>();
 
     @Property
     private String[] pets = {"Cat","Dog","Rabbit"};

@@ -8,6 +8,9 @@
 
 <!-- Tapestry Grid component for displaying employee details -->
 <t:grid source="employees" row="employee" add="action" exclude="Password" rowsPerPage="5" pagerPosition="top">
+     <p:Idcell>
+            <t:pagelink page="EmployeeDetailsView" context="employee.id">${employee.id}</t:pagelink>
+     </p:Idcell>
     <p:actionCell>
         <t:pagelink page="EmployeeDetailsView" context="employee.id">View Details  </t:pagelink>
         <t:pagelink page="EditEmployee" context="employee.id">  Edit</t:pagelink>
