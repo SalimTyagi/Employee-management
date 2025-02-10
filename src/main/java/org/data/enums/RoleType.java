@@ -19,13 +19,4 @@ public enum RoleType {
     public String toString() {
         return displayName; // Returns "Admin", "Employee", "Manager"
     }
-
-    public static RoleType fromString(String text) {
-        for (RoleType role : RoleType.values()) {
-            if (role.displayName.equalsIgnoreCase(text)) {
-                return role;
-            }
-        }
-        throw new IllegalArgumentException("Invalid role type: " + text);
-    }
 }

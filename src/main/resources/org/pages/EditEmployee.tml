@@ -8,21 +8,26 @@
 
 <form t:type="form" t:id="editEmployeeForm">
     <div>
-        <label for="name">Name:</label>
-        <input t:type="textfield" t:id="name" t:value="name" />
+        <label>Name:</label>
+        <input t:type="textfield" t:value="name" />
     </div>
     <div>
-        <label for="age">Age:</label>
-        <input t:type="textfield" t:id="age" t:value="age" />
+        <label>Age:</label>
+        <input t:type="textfield" t:value="age" />
     </div>
     <div>
-        <label for="address">Address:</label>
-        <input t:type="textfield" t:id="address" t:value="address" />
+        <label>Address:</label>
+        <input t:type="textfield" t:value="address" />
     </div>
-     <div>
-           <label for="password">Password:</label>
-           <input t:type="passwordfield" t:id="password" t:value="password" />
-     </div>
+    <div>
+        <label>Password:</label>
+        <input t:type="passwordfield" t:value="password" />
+    </div>
+    <div>
+        <label>Role:</label>
+        <t:select t:id="roleSelect" model="availableRoles" value="selectedRole"/>
+    </div>
+    <br/>
     <div>
         <input t:type="submit" value="Save Changes" />
     </div>

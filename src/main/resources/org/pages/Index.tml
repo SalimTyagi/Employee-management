@@ -14,13 +14,14 @@
 <h2>Login Page</h2>
     <form t:type="form" t:id="loginForm">
         <div>
-            <label for="username">Username:</label>
+            <label>Username:</label>
             <input t:type="textfield" t:id="username" t:value="username" />
         </div>
         <div>
-            <label for="password">Password:</label>
+            <label>Password:</label>
             <input t:type="passwordfield" t:id="password" t:value="password" />
         </div>
+        <br/>
         <div>
             <input t:type="submit" value="Login" />
         </div>

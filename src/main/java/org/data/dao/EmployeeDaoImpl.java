@@ -86,4 +86,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
             ex.printStackTrace();
         }
     }
+
+    @Override
+    public Employee findEmployeeByUsername(String userName) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Employee WHERE name = :name", Employee.class)
+                    .setParameter("name", userName)
+                    .uniqueResult();
+        }
+    }
 }

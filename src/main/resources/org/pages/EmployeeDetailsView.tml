@@ -3,16 +3,16 @@
     <title>Employee Details</title>
 </head>
 <body class="container">
-    <t:header />
-    <h2>Employee Details</h2>
+<h2>Employee Details</h2>
 
-    <div t:if="employee">
-        <p><strong>ID:</strong> ${employee.id}</p>
-        <p><strong>Name:</strong> ${employee.name}</p>
-        <p><strong>Age:</strong> ${employee.age}</p>
-        <p><strong>Address:</strong> ${employee.address}</p>
-    </div>
+<p><strong>ID:</strong> ${employee.id}</p>
+<p><strong>Name:</strong> ${employee.name}</p>
+<p><strong>Age:</strong> ${employee.age}</p>
+<p><strong>Address:</strong> ${employee.address}</p>
+<p><strong>Role:</strong> ${roleName}</p> <!-- Displays role -->
+<p><strong>Permissions:</strong> ${permissionsList}</p> <!--  Displays permissions -->
 
-    <t:pagelink page="EmployeeDetails">Back to Employee List</t:pagelink>
+<br />
+<t:pagelink page="EmployeeDetails">Back to Employee List</t:pagelink>
 </body>
 </html>

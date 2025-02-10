@@ -1,9 +1,11 @@
 package org.pages;
+
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.ActivationRequestParameter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.data.entities.Employee;
 import org.data.services.EmployeeService;
+import java.util.stream.Collectors;
 
 public class EmployeeDetailsView {
 
@@ -27,5 +29,19 @@ public class EmployeeDetailsView {
 
     public int onPassivate() {
         return employeeId;
+    }
+
+    //  Get Role Name
+    public String getRoleName() {
+        return (employee.getRole() != null) ? employee.getRole().getRoleType().getDisplayName() : "No Role Assigned";
+    }
+
+    //  Get Permissions as Comma-Separated String
+    public String getPermissionsList() {
+        return (employee.getPermissions() != null && !employee.getPermissions().isEmpty())
+                ? employee.getPermissions().stream()
+                .map(p -> p.getPermissionType().getDisplayName())
+                .collect(Collectors.joining(", "))
+                : "No Permissions Assigned";
     }
 }
