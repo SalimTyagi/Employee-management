@@ -10,17 +10,19 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private EmployeeDao employeeDao;
     private Employee loggedInEmployee;
-
     @Override
     public boolean validateLogin(String userName, String password) {
-        return employeeDao.authenticate(userName,password);
+        Employee employee = employeeDao.findEmployeeByUsername(userName);
+        if (employee != null && employee.getPassword().equals(password)) {
+            this.loggedInEmployee = employee; // ✅ Store logged-in employee
+            return true;
+        }
+        return false;
     }
-
     @Override
     public Employee getLoggedInEmployee() {
         return loggedInEmployee;
     }
-
     @Override
     public void setLoggedInEmployee(Employee employee) {
         this.loggedInEmployee = employee;

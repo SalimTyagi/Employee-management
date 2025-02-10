@@ -17,4 +17,6 @@ public interface EmployeeDao {
     boolean authenticate(String userName, String password);
 
     void deleteEmployee(int id);
+
+    Employee findEmployeeByUsername(String userName);
 }

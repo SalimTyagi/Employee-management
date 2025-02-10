@@ -18,10 +18,10 @@ public class Employee {
     private String address;
     @Column
     private String password;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private Role role;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "employee_permissions",
             joinColumns = @JoinColumn(name = "employee_id"),

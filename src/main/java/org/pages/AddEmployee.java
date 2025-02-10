@@ -22,49 +22,31 @@ import java.util.stream.Collectors;
 public class AddEmployee {
     @Property
     private String name;
-
     @Property
     private int age;
-
     @Property
     private String address;
-
     @Property
     private String password;
-
     @Property
     private Role selectedRole;
-
     @Property
     private List<Role> availableRoles;
-
-    @Property
-    private List<Permission> availablePermissions;
-
-    @Property
-    private Set<Permission> selectedPermissions = new HashSet<>();
-
     @Property
     private String errorMessage;
-
     @Inject
     private PageRenderLinkSource linkSource;
-
     @Component
     private Form addEmployeeForm;
-
     @Inject
     private EmployeeService employeeService;
-
     @Inject
     private RoleService roleService;
-
     @Inject
     private PermissionService permissionService;
 
     public void setupRender() {
         availableRoles = roleService.findAllRoles();
-        availablePermissions = permissionService.findAllPermissions();
     }
 
     public void onValidateFromAddEmployeeForm() {
@@ -83,12 +65,7 @@ public class AddEmployee {
             employee.setPassword(password);
             employee.setRole(selectedRole);
 
-            // Assign permissions based on role
-            if (selectedRole.getRoleType() == RoleType.ADMIN) {
-                employee.setPermissions(new HashSet<>(availablePermissions)); // Admin gets all permissions
-            } else {
-                employee.setPermissions(selectedPermissions); // Assign selected permissions
-            }
+            employee.setPermissions(assignPermissionsBasedOnRole(selectedRole));
 
             employeeService.saveEmployee(employee);
             return linkSource.createPageRenderLink(EmployeeDetails.class);
@@ -103,5 +80,24 @@ public class AddEmployee {
                 address != null && !address.trim().isEmpty() &&
                 password != null && !password.trim().isEmpty() &&
                 selectedRole != null;
+    }
+
+    private Set<Permission> assignPermissionsBasedOnRole(Role role) {
+        Set<Permission> permissions = new HashSet<>();
+        List<Permission> allPermissions = permissionService.findAllPermissions();
+
+        if (role.getRoleType() == RoleType.ADMIN) {
+            permissions.addAll(allPermissions); // Admin gets all permissions
+        } else if (role.getRoleType() == RoleType.MANAGER) {
+            permissions.addAll(allPermissions.stream()
+                    .filter(p -> p.getPermissionType() == PermissionType.VIEW || p.getPermissionType() == PermissionType.EDIT)
+                    .collect(Collectors.toSet())); // Manager gets VIEW, EDIT
+        } else if (role.getRoleType() == RoleType.EMPLOYEE) {
+            permissions.addAll(allPermissions.stream()
+                    .filter(p -> p.getPermissionType() == PermissionType.VIEW)
+                    .collect(Collectors.toSet())); // Employee gets only VIEW
+        }
+
+        return permissions;
     }
 }

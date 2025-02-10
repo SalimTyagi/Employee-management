@@ -7,63 +7,79 @@ import org.apache.tapestry5.commons.Messages;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.data.entities.Employee;
+import org.data.entities.Role;
+import org.data.entities.Permission;
+import org.data.enums.RoleType;
+import org.data.enums.PermissionType;
 import org.data.services.EmployeeService;
+import org.data.services.RoleService;
+import org.data.services.PermissionService;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class EditEmployee {
 
     @ActivationRequestParameter("employeeId")
     @Property
     private int employeeId;
-
     @Property
     private String name;
-
     @Property
     private int age;
-
     @Property
     private String address;
-
     @Property
     private String password;
-
+    @Property
+    private Role selectedRole;
+    @Property
+    private List<Role> availableRoles;
     @Inject
     private Messages messages;
-
     @Property
     private String errorMessage;
-
     @Component
     private Form editEmployeeForm;
-
     @Property
     private Employee employee;
-
     @Inject
     private EmployeeService employeeService;
+    @Inject
+    private RoleService roleService;
+    @Inject
+    private PermissionService permissionService;
 
-    void setUpRender(){
-        if(employee!=null){
-            employeeService.findEmployeeById(employeeId);
-        }
-    }
+    // Ensuring employee is retrieved properly before rendering
+    void setupRender() {
+        availableRoles = roleService.findAllRoles(); // Load all available roles
 
-    public void onPrepare(int employeeId) {
-        this.employeeId = employeeId;
-        this.employee = employeeService.findEmployeeById(employeeId);
-        if (employee != null) {
-            this.name = employee.getName();
-            this.age = employee.getAge();
-            this.address = employee.getAddress();
-            this.password=employee.getPassword();
+        if (employeeId > 0) {
+            employee = employeeService.findEmployeeById(employeeId);
+            if (employee != null) {
+                name = employee.getName();
+                age = employee.getAge();
+                address = employee.getAddress();
+                password = employee.getPassword();
+                selectedRole = employee.getRole();
+            } else {
+                errorMessage = "Employee not found.";
+            }
         }
     }
 
     public void onActivate(int employeeId) {
         this.employeeId = employeeId;
-        this.employee = employeeService.findEmployeeById(employeeId);
+        employee = employeeService.findEmployeeById(employeeId);
+        if (employee != null) {
+            name = employee.getName();
+            age = employee.getAge();
+            address = employee.getAddress();
+            password = employee.getPassword();
+            selectedRole = employee.getRole();
+        }
     }
 
     public int onPassivate() {
@@ -72,7 +88,7 @@ public class EditEmployee {
 
     public void onValidateFromEditEmployeeForm() {
         if (!isValidInput()) {
-            errorMessage = messages.get("invalid input");
+            errorMessage = messages.get("Invalid input");
             editEmployeeForm.recordError(errorMessage);
         }
     }
@@ -83,6 +99,8 @@ public class EditEmployee {
             employee.setAge(age);
             employee.setAddress(address);
             employee.setPassword(password);
+            employee.setRole(selectedRole);
+            employee.setPermissions(assignPermissions(selectedRole)); // Update permissions based on role
             employeeService.saveEmployee(employee);
             return EmployeeDetails.class;
         }
@@ -93,6 +111,27 @@ public class EditEmployee {
     private boolean isValidInput() {
         return name != null && !name.trim().isEmpty() &&
                 age > 0 &&
-                address != null && !address.trim().isEmpty();
+                address != null && !address.trim().isEmpty() &&
+                selectedRole != null;
+    }
+
+    // Assign permissions based on role
+    private Set<Permission> assignPermissions(Role role) {
+        Set<Permission> permissions = new HashSet<>();
+        List<Permission> allPermissions = permissionService.findAllPermissions();
+
+        if (role.getRoleType() == RoleType.ADMIN) {
+            permissions.addAll(allPermissions); // Admin gets all permissions
+        } else if (role.getRoleType() == RoleType.MANAGER) {
+            permissions.addAll(allPermissions.stream()
+                    .filter(p -> p.getPermissionType() == PermissionType.VIEW || p.getPermissionType() == PermissionType.EDIT)
+                    .collect(Collectors.toSet()));
+        } else if (role.getRoleType() == RoleType.EMPLOYEE) {
+            permissions.addAll(allPermissions.stream()
+                    .filter(p -> p.getPermissionType() == PermissionType.VIEW)
+                    .collect(Collectors.toSet()));
+        }
+
+        return permissions;
     }
 }

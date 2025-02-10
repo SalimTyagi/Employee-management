@@ -13,12 +13,10 @@ import java.util.List;
 public class PermissionServiceImpl implements PermissionService {
     @Autowired
     private PermissionDao permissionDao;
-
     @Override
     public List<Permission> findAllPermissions() {
         return permissionDao.findAllPermissions();
     }
-
     @Override
     public Permission findPermissionById(int id) {
         return permissionDao.findPermissionById(id);

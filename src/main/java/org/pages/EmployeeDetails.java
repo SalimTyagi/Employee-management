@@ -31,15 +31,19 @@ public class EmployeeDetails {
     }
 
     public boolean getCanEdit() {
-        return permissionService.hasPermission(employee, PermissionType.EDIT);
+        return permissionService.hasPermission(loggedInEmployee, PermissionType.EDIT);
     }
 
     public boolean getCanDelete() {
-        return permissionService.hasPermission(employee, PermissionType.DELETE);
+        return permissionService.hasPermission(loggedInEmployee, PermissionType.DELETE);
     }
 
     public boolean getCanCreate() {
-        return permissionService.hasPermission(employee, PermissionType.CREATE);
+        return permissionService.hasPermission(loggedInEmployee, PermissionType.CREATE);
+    }
+
+    public String getEmployeeRole() {
+        return (employee.getRole() != null) ? employee.getRole().getRoleType().getDisplayName() : "No Role Assigned";
     }
 
 
