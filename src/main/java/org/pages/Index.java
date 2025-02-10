@@ -10,25 +10,18 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.data.services.LoginService;
 
 public class Index {
-
     @Property
     private String username;
-
     @Property
     private String password;
-
     @Property
     private String loginMessage;
-
     @Inject
     private Messages messages;
-
     @Inject
     private PageRenderLinkSource linkSource;
-
     @Inject
     private LoginService loginService;
-
     @Component
     private Form loginForm;
 
