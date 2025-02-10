@@ -42,9 +42,4 @@ public class EmployeeDetails {
         return permissionService.hasPermission(loggedInEmployee, PermissionType.CREATE);
     }
 
-    public String getEmployeeRole() {
-        return (employee.getRole() != null) ? employee.getRole().getRoleType().getDisplayName() : "No Role Assigned";
-    }
-
-
 }
