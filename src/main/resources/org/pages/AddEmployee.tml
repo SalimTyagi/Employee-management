@@ -20,13 +20,18 @@
     <input t:type="passwordfield" t:value="password"/>
 
     <label>Role:</label>
-    <t:select t:id="roleSelect" model="availableRoles" value="selectedRole"encoder="beanEncoder"/>
-     <br/>
+    <t:select t:id="roleSelect" model="availableRoles" value="selectedRole"/>
+    <br/>
+
+    <label>Permissions:</label>
+    <t:select t:id="permissionsSelect" model="availablePermissions" value="selectedPermissions"/>
+    <br/>
 
     <input t:type="submit" value="Add Employee"/>
 </form>
 
-<t:pagelink page="CoreComponentsPractice">Core Components Practice Page</t:pagelink><br></br>
+<t:pagelink page="CoreComponentsPractice">Core Components Practice Page</t:pagelink><br/>
+<t:pagelink page="EmployeeDetails">Back to Employee Details</t:pagelink>
 
 <p t:if="errorMessage">${errorMessage}</p>
 </body>

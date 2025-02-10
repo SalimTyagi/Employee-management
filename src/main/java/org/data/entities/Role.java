@@ -23,6 +23,11 @@ public class Role {
         this.roleType = roleType;
     }
 
+    @Override
+    public String toString() {
+        return roleType.getDisplayName();
+    }
+
     public int getId() { return id; }
 
     public RoleType getRoleType() { return roleType; }

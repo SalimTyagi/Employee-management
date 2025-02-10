@@ -26,6 +26,11 @@ public class Permission {
         this.permissionType = permissionType;
     }
 
+    @Override
+    public String toString() {
+        return permissionType.getDisplayName();
+    }
+
     public int getId() { return id; }
 
     public PermissionType getPermissionType() { return permissionType; }
