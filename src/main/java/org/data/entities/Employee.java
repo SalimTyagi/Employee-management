@@ -28,17 +28,20 @@ public class Employee {
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
     private Set<Permission> permissions;
+    @Column(name = "image_path")
+    private String imagePath;
 
     public Employee(){
 
     }
 
-    public Employee(int id, String name, int age, String address, String password, Role role) {
+    public Employee(int id, String name, int age, String address, String password,String imagePath, Role role) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
         this.password = password;
+        this.imagePath = imagePath;
         this.role = role;
     }
 
@@ -79,5 +82,8 @@ public class Employee {
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
+
+    public String getImagePath() { return imagePath; }
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
 }

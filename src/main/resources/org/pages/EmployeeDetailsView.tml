@@ -1,18 +1,60 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 <head>
     <title>Employee Details</title>
+    <style>
+        /* Styling for the CLOSE button */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .close-button:hover {
+            background-color: darkred;
+        }
+    </style>
 </head>
 <body class="container">
+
+<!-- Close button at the top-right corner -->
+<t:pagelink page="Index">
+    <button class="close-button">[CLOSE]</button>
+</t:pagelink>
+
 <h2>Employee Details</h2>
 
 <p><strong>ID:</strong> ${employee.id}</p>
 <p><strong>Name:</strong> ${employee.name}</p>
 <p><strong>Age:</strong> ${employee.age}</p>
 <p><strong>Address:</strong> ${employee.address}</p>
-<p><strong>Role:</strong> ${roleName}</p> <!-- Displays role -->
-<p><strong>Permissions:</strong> ${permissionsList}</p> <!--  Displays permissions -->
 
-<br />
+<!-- Wrap Role & Permissions in a Zone -->
+<t:zone t:id="roleZone">
+    <p><strong>Role:</strong> ${roleName}</p>
+    <p><strong>Permissions:</strong> ${permissionsList}</p>
+</t:zone>
+<br/>
+
+<t:zone t:id="imageZone">
+    <img src="${context:images/employee1.jpg}" width="100px" height="100px" />
+</t:zone>
+<br/>
+
+<!-- ActionLink for showing image in a popup -->
+<t:actionlink t:id="showImage">[IMAGE]</t:actionlink><br/>
+
+<!-- EventLink to Promote Employee -->
+<t:eventlink t:id="promoteToManager" zone="roleZone">[PROMOTE]</t:eventlink><br/>
+<br/>
 <t:pagelink page="EmployeeDetails">Back to Employee List</t:pagelink>
+
 </body>
 </html>
