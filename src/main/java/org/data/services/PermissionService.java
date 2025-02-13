@@ -10,4 +10,5 @@ public interface PermissionService {
     List<Permission> findAllPermissions();
     Permission findPermissionById(int id);
     boolean hasPermission(Employee employee,PermissionType permissionType);
+    Permission getPermissionByType(PermissionType permissionType);
 }

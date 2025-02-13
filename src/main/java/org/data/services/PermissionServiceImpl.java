@@ -37,4 +37,9 @@ public class PermissionServiceImpl implements PermissionService {
         return employee.getPermissions().stream()
                 .anyMatch(permission -> permission.getPermissionType().equals(permissionType));
     }
+
+    @Override
+    public Permission getPermissionByType(PermissionType permissionType) {
+        return permissionDao.findPermissionByType(permissionType);
+    }
 }
