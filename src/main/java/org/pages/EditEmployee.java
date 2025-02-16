@@ -5,6 +5,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.ActivationRequestParameter;
 import org.apache.tapestry5.commons.Messages;
 import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.corelib.components.Select;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.data.entities.Employee;
 import org.data.entities.Role;
@@ -15,6 +16,8 @@ import org.data.services.EmployeeService;
 import org.data.services.RoleService;
 import org.data.services.PermissionService;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,6 +54,12 @@ public class EditEmployee {
     private RoleService roleService;
     @Inject
     private PermissionService permissionService;
+    @Property
+    private String selectedGender;
+    @Property
+    private Date dateOfBirth;
+    @Component
+    private Select genderSelect;
 
     // Ensuring employee is retrieved properly before rendering
     void setupRender() {
@@ -64,24 +73,19 @@ public class EditEmployee {
                 address = employee.getAddress();
                 password = employee.getPassword();
                 selectedRole = employee.getRole();
+                selectedGender=employee.getGender();
+                dateOfBirth=employee.getDateOfBirth();
             } else {
                 errorMessage = "Employee not found.";
             }
         }
     }
-
-    public void onActivate(int employeeId) {
-        this.employeeId = employeeId;
-        employee = employeeService.findEmployeeById(employeeId);
-        if (employee != null) {
-            name = employee.getName();
-            age = employee.getAge();
-            address = employee.getAddress();
-            password = employee.getPassword();
-            selectedRole = employee.getRole();
+    public void onActivate(Integer employeeId) {
+        if (employeeId != null) {
+            this.employeeId = employeeId;
+            employee = employeeService.findEmployeeById(employeeId);
         }
     }
-
     public int onPassivate() {
         return employeeId;
     }
@@ -100,6 +104,8 @@ public class EditEmployee {
             employee.setAddress(address);
             employee.setPassword(password);
             employee.setRole(selectedRole);
+            employee.setGender(selectedGender);
+            employee.setDateOfBirth(dateOfBirth);
             employee.setPermissions(assignPermissions(selectedRole)); // Update permissions based on role
             employeeService.saveEmployee(employee);
             return EmployeeDetails.class;
@@ -112,7 +118,9 @@ public class EditEmployee {
         return name != null && !name.trim().isEmpty() &&
                 age > 0 &&
                 address != null && !address.trim().isEmpty() &&
-                selectedRole != null;
+                selectedRole != null &&
+                selectedGender != null && !selectedGender.trim().isEmpty() &&
+                dateOfBirth != null;
     }
 
     // Assign permissions based on role

@@ -3,7 +3,6 @@ package org.components;
 import org.apache.tapestry5.annotations.Property;
 
 public class Header {
-
     @Property
     private String companyName = "Kane Solutions";
     @Property

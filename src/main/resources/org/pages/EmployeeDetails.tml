@@ -7,7 +7,7 @@
 <h2>Employee Details</h2>
 
 <!-- Tapestry Grid component for displaying employee details -->
-<t:grid source="employees" row="employee" add="action" exclude="Password,ImagePath" rowsPerPage="5" pagerPosition="top">
+<t:grid source="employees" row="employee" add="action" exclude="Password" rowsPerPage="5" pagerPosition="top">
     <p:Idcell>
         <t:pagelink page="EmployeeDetailsView" context="employee.id">${employee.id}</t:pagelink>
     </p:Idcell>
