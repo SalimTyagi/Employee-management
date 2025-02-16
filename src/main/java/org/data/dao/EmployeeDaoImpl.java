@@ -1,6 +1,7 @@
 package org.data.dao;
 
 import org.data.entities.Employee;
+import org.data.entities.Permission;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -74,6 +75,18 @@ public class EmployeeDaoImpl implements EmployeeDao {
            transaction = session.beginTransaction();
            Employee employee = session.get(Employee.class,id);
            if(employee!=null){
+               if (employee.getRole() != null) {
+                   employee.getRole().getEmployees().remove(employee);
+                   employee.setRole(null);
+               }
+
+               if (employee.getPermissions() != null) {
+                   for (Permission permission : employee.getPermissions()) {
+                       permission.getEmployees().remove(employee); // Remove from permission side
+                   }
+                   employee.getPermissions().clear(); // Clear employee's permissions
+               }
+
                session.delete(employee);
            }else {
                System.out.println("No Employee found with ID :"+id);

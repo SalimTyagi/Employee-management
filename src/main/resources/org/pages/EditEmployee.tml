@@ -24,6 +24,14 @@
         <input t:type="passwordfield" t:value="password" />
     </div>
     <div>
+        <label>Gender:</label>
+        <t:select t:id="genderSelect" value="selectedGender" model="literal:Male,Female" />
+    </div>
+    <div>
+        <label>Date of Birth:</label>
+        <t:datefield t:id="dateOfBirth" value="dateOfBirth" format="yyyy-MM-dd" />
+    </div>
+    <div>
         <label>Role:</label>
         <t:select t:id="roleSelect" model="availableRoles" value="selectedRole"/>
     </div>

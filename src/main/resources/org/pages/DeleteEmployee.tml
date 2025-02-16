@@ -1,10 +1,15 @@
 <html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
 <head>
-    <title>Delete Employee</title>
+    <title>Employee Deleted</title>
 </head>
 <body class="container">
-<t:header />
-<h1>Employee Deleted Successfully</h1>
-<p><a t:type="PageLink" page="EmployeeDetails">Go Back to Employee Details</a></p>
+<h2>Delete Employee</h2>
+
+<t:if test="deleted">
+    <p style="color: green; font-weight: bold;">Employee deleted successfully.</p>
+</t:if>
+
+<b/>
+<t:pagelink page="EmployeeDetails">Back to Employee List</t:pagelink>
 </body>
 </html>

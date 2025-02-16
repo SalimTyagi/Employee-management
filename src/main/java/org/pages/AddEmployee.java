@@ -14,34 +14,53 @@ import org.data.services.EmployeeService;
 import org.data.services.RoleService;
 import org.data.services.PermissionService;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class AddEmployee {
+
     @Property
     private String name;
+
     @Property
     private int age;
+
     @Property
     private String address;
+
     @Property
     private String password;
+
     @Property
     private Role selectedRole;
+
     @Property
     private List<Role> availableRoles;
+
     @Property
     private String errorMessage;
+
+    @Property
+    private Date dateOfBirth;   // New property for Date of Birth
+
+    @Property
+    private String selectedGender;   // New property for Gender
+
     @Inject
     private PageRenderLinkSource linkSource;
+
     @Component
     private Form addEmployeeForm;
+
     @Inject
     private EmployeeService employeeService;
+
     @Inject
     private RoleService roleService;
+
     @Inject
     private PermissionService permissionService;
 
@@ -64,7 +83,8 @@ public class AddEmployee {
             employee.setAddress(address);
             employee.setPassword(password);
             employee.setRole(selectedRole);
-
+            employee.setGender(selectedGender);
+            employee.setDateOfBirth(dateOfBirth);
             employee.setPermissions(assignPermissionsBasedOnRole(selectedRole));
 
             employeeService.saveEmployee(employee);
@@ -79,7 +99,9 @@ public class AddEmployee {
                 age > 0 &&
                 address != null && !address.trim().isEmpty() &&
                 password != null && !password.trim().isEmpty() &&
-                selectedRole != null;
+                selectedRole != null &&
+                selectedGender != null && !selectedGender.trim().isEmpty() &&
+                dateOfBirth != null;
     }
 
     private Set<Permission> assignPermissionsBasedOnRole(Role role) {
@@ -87,17 +109,16 @@ public class AddEmployee {
         List<Permission> allPermissions = permissionService.findAllPermissions();
 
         if (role.getRoleType() == RoleType.ADMIN) {
-            permissions.addAll(allPermissions); // Admin gets all permissions
+            permissions.addAll(allPermissions);
         } else if (role.getRoleType() == RoleType.MANAGER) {
             permissions.addAll(allPermissions.stream()
                     .filter(p -> p.getPermissionType() == PermissionType.VIEW || p.getPermissionType() == PermissionType.EDIT)
-                    .collect(Collectors.toSet())); // Manager gets VIEW, EDIT
+                    .collect(Collectors.toSet()));
         } else if (role.getRoleType() == RoleType.EMPLOYEE) {
             permissions.addAll(allPermissions.stream()
                     .filter(p -> p.getPermissionType() == PermissionType.VIEW)
-                    .collect(Collectors.toSet())); // Employee gets only VIEW
+                    .collect(Collectors.toSet()));
         }
-
         return permissions;
     }
 }

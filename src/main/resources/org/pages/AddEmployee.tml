@@ -3,31 +3,29 @@
     <title>Add Employee</title>
 </head>
 <body class="container">
-<t:header />
 <h2>Add New Employee</h2>
+<t:form t:id="addEmployeeForm">
+    <p>Name: <t:textfield t:id="name" value="name" /></p>
+    <p>Age: <t:textfield t:id="age" value="age" type="number" /></p>
+    <p>Address: <t:textfield t:id="address" value="address" /></p>
+    <p>Password: <t:passwordfield t:id="password" value="password" /></p>
+    <p>Date of Birth: <t:datefield t:id="dateOfBirth" value="dateOfBirth" format="yyyy-MM-dd" /></p>
 
-<form t:type="form" t:id="addEmployeeForm">
-    <label>Name:</label>
-    <input t:type="textfield" t:value="name"/>
+    <p>Gender:
+        <t:select t:id="genderSelect" value="selectedGender" model="literal:Male,Female" />
+    </p>
 
-    <label>Age:</label>
-    <input t:type="textfield" t:value="age"/>
+    <p>Role:
+        <t:select t:id="roleSelect" value="selectedRole" model="availableRoles" />
+    </p>
 
-    <label>Address:</label>
-    <input t:type="textfield" t:value="address"/>
-
-    <label>Password:</label>
-    <input t:type="passwordfield" t:value="password"/>
-
-    <label>Role:</label>
-    <t:select t:id="roleSelect" model="availableRoles" value="selectedRole"/>
-    <br/>
-
-    <input t:type="submit" value="Add Employee"/>
-</form>
+    <t:submit value="Add Employee" />
+</t:form>
 
 <t:pagelink page="EmployeeDetails">Back to Employee Details</t:pagelink>
 
-<p t:if="errorMessage">${errorMessage}</p>
+<t:if test="errorMessage">
+    <p class="error">${errorMessage}</p>
+</t:if>
 </body>
 </html>

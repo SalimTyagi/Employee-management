@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface RoleService {
     List<Role> findAllRoles();
-    Role getRoleByType(RoleType manager);
+    Role getRoleByType(RoleType roleType);
 }
