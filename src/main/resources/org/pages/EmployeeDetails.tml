@@ -4,6 +4,8 @@
 </head>
 <body class="container">
 <t:header />
+<t:pagelink page="SearchEmployee">Search Employee</t:pagelink>
+<br />
 <h2>Employee Details</h2>
 
 <!-- Tapestry Grid component for displaying employee details -->

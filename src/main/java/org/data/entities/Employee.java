@@ -1,7 +1,6 @@
 package org.data.entities;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -31,9 +30,9 @@ public class Employee {
     )
     private Set<Permission> permissions;
 
-    @Temporal(TemporalType.DATE)  // Ensures correct format in DB
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
-    @Column(name = "gender") // New field for Gender
+    @Column(name = "gender")
     private String gender;
 
     public Employee(){
@@ -78,9 +77,9 @@ public class Employee {
     public void setPermissions(Set<Permission> permissions) {
         this.permissions = permissions;
     }
-    public Date getDateOfBirth() { return dateOfBirth; } // New getter
-    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; } // New setter
-    public String getGender() { return gender; } // New getter
-    public void setGender(String gender) { this.gender = gender; } // New setter
+    public Date getDateOfBirth() { return dateOfBirth; }
+    public void setDateOfBirth(Date dateOfBirth) { this.dateOfBirth = dateOfBirth; }
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
 
 }
