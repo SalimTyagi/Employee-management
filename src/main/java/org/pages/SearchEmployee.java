@@ -1,6 +1,7 @@
 package org.pages;
 
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -14,6 +15,7 @@ public class SearchEmployee {
     @Property
     private String searchQuery;
     @Property
+    @Persist
     private List<Employee> searchResults;
     @Inject
     private EmployeeService employeeService;
