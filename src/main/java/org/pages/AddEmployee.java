@@ -2,6 +2,7 @@ package org.pages;
 
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.commons.Messages;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.data.entities.Employee;
@@ -21,48 +22,36 @@ import java.util.HashSet;
 import java.util.stream.Collectors;
 
 public class AddEmployee {
-
     @Property
     private String name;
-
     @Property
     private int age;
-
     @Property
     private String address;
-
     @Property
     private String password;
-
     @Property
     private Role selectedRole;
-
     @Property
     private List<Role> availableRoles;
-
     @Property
     private String errorMessage;
-
     @Property
-    private Date dateOfBirth;   // New property for Date of Birth
-
+    private Date dateOfBirth;
     @Property
-    private String selectedGender;   // New property for Gender
-
+    private String selectedGender;
     @Inject
     private PageRenderLinkSource linkSource;
-
     @Component
     private Form addEmployeeForm;
-
     @Inject
     private EmployeeService employeeService;
-
     @Inject
     private RoleService roleService;
-
     @Inject
     private PermissionService permissionService;
+    @Inject
+    private Messages messages;
 
     public void setupRender() {
         availableRoles = roleService.findAllRoles();
@@ -70,7 +59,7 @@ public class AddEmployee {
 
     public void onValidateFromAddEmployeeForm() {
         if (!isValidInput()) {
-            errorMessage = "Invalid input. Please check the fields and try again.";
+            errorMessage= messages.get("invalid-input");
             addEmployeeForm.recordError(errorMessage);
         }
     }
@@ -90,7 +79,6 @@ public class AddEmployee {
             employeeService.saveEmployee(employee);
             return linkSource.createPageRenderLink(EmployeeDetails.class);
         }
-        errorMessage = "Invalid input. Please check the fields and try again.";
         return this;
     }
 

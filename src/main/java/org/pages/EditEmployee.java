@@ -76,7 +76,7 @@ public class EditEmployee {
                 selectedGender=employee.getGender();
                 dateOfBirth=employee.getDateOfBirth();
             } else {
-                errorMessage = "Employee not found.";
+                errorMessage = messages.get("not-found");
             }
         }
     }
@@ -110,7 +110,6 @@ public class EditEmployee {
             employeeService.saveEmployee(employee);
             return EmployeeDetails.class;
         }
-        errorMessage = "Employee not found or invalid input.";
         return this;
     }
 
@@ -123,7 +122,6 @@ public class EditEmployee {
                 dateOfBirth != null;
     }
 
-    // Assign permissions based on role
     private Set<Permission> assignPermissions(Role role) {
         Set<Permission> permissions = new HashSet<>();
         List<Permission> allPermissions = permissionService.findAllPermissions();

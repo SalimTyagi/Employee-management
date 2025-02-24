@@ -30,13 +30,19 @@
 </t:pagelink>
 
 <h2>Employee Details</h2>
+<t:zone t:id="birthdayZone">
+    <t:if test="employee">
+        <!--   <t:EmpBday employee="employee"/> -->
+      </t:if>
+  </t:zone>
 
-<p><strong>ID:</strong> ${employee.id}</p>
-<p><strong>Name:</strong> ${employee.name}</p>
-<p><strong>Age:</strong> ${employee.age}</p>
-<p><strong>Address:</strong> ${employee.address}</p>
 
-<!-- Wrap Role & Permissions in a Zone -->
+  <p><strong>ID:</strong> ${employee.id}</p>
+  <p><strong>Name:</strong> ${employee.name}</p>
+  <p><strong>Age:</strong> ${employee.age}</p>
+  <p><strong>Address:</strong> ${employee.address}</p>
+
+  <!-- Wrap Role & Permissions in a Zone -->
 <t:zone t:id="roleZone">
     <p><strong>Role:</strong> ${roleName}</p>
     <p><strong>Permissions:</strong> ${permissionsList}</p>
