@@ -1,0 +1,18 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd">
+<body class="container">
+<t:header />
+<h2>Search Employee</h2>
+
+<t:form t:id="searchForm">
+    <label>Search: <t:textfield t:id="searchQuery" /></label>
+    <input type="submit" value="Search" />
+</t:form>
+
+<t:if test="searchResults">
+    <h3>Results</h3>
+    <t:grid t:source="searchResults" row="employee">
+    </t:grid>
+</t:if>
+<t:pagelink page="EmployeeDetails">Back to Employee Details</t:pagelink>
+</body>
+</html>

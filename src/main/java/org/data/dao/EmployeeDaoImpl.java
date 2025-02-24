@@ -97,9 +97,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
                     .uniqueResult();
         }
     }
-
     @Override
     public List<Employee> searchEmployees(String searchQuery) {
-        return null;
+       try(Session session = sessionFactory.openSession();){
+           String sql = "SELECT * FROM employee WHERE search_vector @@ to_tsquery(:searchQuery)";
+           Query<Employee> query = session.createNativeQuery(sql, Employee.class);
+           query.setParameter("keyword", searchQuery + ":*");  // Allows partial search
+           return query.getResultList();
+       }
     }
 }
