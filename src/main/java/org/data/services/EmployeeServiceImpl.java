@@ -26,4 +26,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void delete(int id) {
         employeeDao.deleteEmployee(id);
     }
+    @Override
+    public List<Employee> searchEmployees(String searchQuery) {
+        return employeeDao.searchEmployees(searchQuery);
+    }
 }
