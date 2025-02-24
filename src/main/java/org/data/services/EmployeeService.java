@@ -7,4 +7,5 @@ public interface EmployeeService {
     Employee findEmployeeById(int employeeId);
     List<Employee> getAllEmployees();
     void delete(int id);
+    List<Employee> searchEmployees(String searchQuery);
 }

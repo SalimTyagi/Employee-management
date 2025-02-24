@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
-
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -59,16 +58,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public boolean authenticate(String userName, String password) {
-        try(Session session = sessionFactory.openSession()) {
-            Employee employee = (Employee) session.createQuery("FROM Employee e WHERE e.name = :username")
-                    .setParameter("username", userName)
-                    .uniqueResult();
-            return employee != null && employee.getPassword().equals(password);
-        }
-    }
-
-    @Override
     public void deleteEmployee(int id) {
         Transaction transaction = null;
         try(Session session = sessionFactory.openSession()){
@@ -107,5 +96,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
                     .setParameter("name", userName)
                     .uniqueResult();
         }
+    }
+
+    @Override
+    public List<Employee> searchEmployees(String searchQuery) {
+        return null;
     }
 }
