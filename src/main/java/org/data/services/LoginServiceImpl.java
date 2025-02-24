@@ -14,7 +14,7 @@ public class LoginServiceImpl implements LoginService {
     public boolean validateLogin(String userName, String password) {
         Employee employee = employeeDao.findEmployeeByUsername(userName);
         if (employee != null && employee.getPassword().equals(password)) {
-            this.loggedInEmployee = employee; // Store logged-in employee
+            this.loggedInEmployee = employee;
             return true;
         }
         return false;

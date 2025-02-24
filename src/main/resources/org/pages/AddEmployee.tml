@@ -2,6 +2,7 @@
 <head>
     <title>Add Employee</title>
 </head>
+<t:header />
 <body class="container">
 <h2>Add New Employee</h2>
 <t:form t:id="addEmployeeForm">

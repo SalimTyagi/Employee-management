@@ -19,28 +19,23 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class EmployeeDetailsView {
-
     @ActivationRequestParameter("employeeId")
     @Property
     private int employeeId;
-
     @Property
     private Employee employee;
-
     @Inject
     private EmployeeService employeeService;
-
     @Inject
     private RoleService roleService;
-
     @Inject
     private PermissionService permissionService;
-
     @InjectComponent
-    private Zone roleZone;  // Injecting the Zone
-
+    private Zone roleZone;
+    @InjectComponent
+    private Zone birthdayZone;
     @Inject
-    private AjaxResponseRenderer ajaxResponseRenderer; // AJAX Renderer for updating the Zone
+    private AjaxResponseRenderer ajaxResponseRenderer;
 
     public void onActivate(int employeeId) {
         this.employeeId = employeeId;
@@ -49,17 +44,13 @@ public class EmployeeDetailsView {
             throw new RuntimeException("Employee not found!");
         }
     }
-
     public int onPassivate() {
         return employeeId;
     }
-
-    // Get Role Name
     public String getRoleName() {
         return (employee.getRole() != null) ? employee.getRole().getRoleType().getDisplayName() : "No Role Assigned";
     }
 
-    // Get Permissions as Comma-Separated String
     public String getPermissionsList() {
         return (employee.getPermissions() != null && !employee.getPermissions().isEmpty())
                 ? employee.getPermissions().stream()
@@ -68,12 +59,9 @@ public class EmployeeDetailsView {
                 : "No Permissions Assigned";
     }
 
-    // ActionLink - Show Employee Image
     public void onShowImage() {
         // Logic to display image in a popup
     }
-
-    // EventLink - Promote Employee to Manager
     public void onPromoteToManager() {
         if (employee.getRole().getRoleType() != RoleType.MANAGER) {
             employee.setRole(roleService.getRoleByType(RoleType.MANAGER));
@@ -86,8 +74,10 @@ public class EmployeeDetailsView {
 
             employeeService.saveEmployee(employee);
 
-            // Update UI dynamically via AJAX
             ajaxResponseRenderer.addRender(roleZone);
         }
+    }
+    void onBirthdayHandled() {
+        ajaxResponseRenderer.addRender(birthdayZone);
     }
 }

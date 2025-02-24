@@ -36,8 +36,5 @@ public class Index {
         return linkSource.createPageRenderLink(EmployeeDetails.class);
     }
 
-    public String getGreetingMessage() {
-        return messages.get("greeting");
-    }
 
 }
