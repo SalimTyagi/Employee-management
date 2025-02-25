@@ -38,6 +38,8 @@ public class EmployeeDetailsView {
     private AjaxResponseRenderer ajaxResponseRenderer;
 
     public void onActivate(int employeeId) {
+         //used to initialize the page when it is accessed.
+        // ensures the correct employee data is loaded when the page is accessed via a URL
         this.employeeId = employeeId;
         this.employee = employeeService.findEmployeeById(employeeId);
         if (this.employee == null) {
@@ -45,6 +47,8 @@ public class EmployeeDetailsView {
         }
     }
     public int onPassivate() {
+        // is used to store data in the URL when navigating to a page.
+        //when you refresh, bookmark, or share the link, the data (like an employee ID) is not lost.
         return employeeId;
     }
     public String getRoleName() {

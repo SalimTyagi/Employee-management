@@ -37,6 +37,6 @@
 </t:if>
 
 <br />
-<t:pagelink page="Index">Back to Home</t:pagelink>
+<t:pagelink page="Index">Back to Login Page</t:pagelink>
 </body>
 </html>
