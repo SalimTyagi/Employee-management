@@ -1,6 +1,5 @@
 package org.components;
 
-import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.commons.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 

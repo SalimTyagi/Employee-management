@@ -54,6 +54,8 @@ public class AddEmployee {
     private Messages messages;
 
     public void setupRender() {
+        //  is a lifecycle method in Tapestry that runs before the page renders.
+        // Ensuring available roles retrieved properly before rendering
         availableRoles = roleService.findAllRoles();
     }
 

@@ -20,12 +20,19 @@ public class EmpBday {
     private boolean isBirthdayToday;
 
     void setupRender() {
+        // setupRender() is a Tapestry lifecycle method that runs before the page is rendered.
+        // It ensures that necessary data is prepared before rendering the page.
+
+        // If the employee object or date of birth is null, set isBirthdayToday to false and exit early.
         if (employee == null || employee.getDateOfBirth() == null) {
             isBirthdayToday = false;
             return;
         }
+
+        // Determine if today is the employee's birthday.
         isBirthdayToday = isBirthdayToday();
     }
+
     public boolean isBirthdayToday() {
 
         if (employee == null || employee.getDateOfBirth() == null) {
