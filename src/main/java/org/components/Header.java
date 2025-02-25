@@ -1,10 +1,17 @@
 package org.components;
 
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.commons.Messages;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 public class Header {
-    @Property
-    private String companyName = "Kane Solutions";
-    @Property
-    private String companyAddress = "Floor 19, C-001/A2, Sector 16B, Noida, Uttar Pradesh 201301";
+    @Inject
+    private Messages messages;
+    public String getCompanyName() {
+        return messages.get("company-name");
+    }
+
+    public String getCompanyAddress() {
+        return messages.get("company-address");
+    }
 }
