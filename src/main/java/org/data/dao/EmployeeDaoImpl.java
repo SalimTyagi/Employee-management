@@ -26,7 +26,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
              transaction.commit();
         }catch (HibernateException ex){
             if (transaction != null) {
-                transaction.rollback(); // Ensure rollback on failure
+                transaction.rollback();
             }
             ex.printStackTrace();
         }
@@ -71,9 +71,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
                if (employee.getPermissions() != null) {
                    for (Permission permission : employee.getPermissions()) {
-                       permission.getEmployees().remove(employee); // Remove from permission side
+                       permission.getEmployees().remove(employee);
                    }
-                   employee.getPermissions().clear(); // Clear employee's permissions
+                   employee.getPermissions().clear();
                }
 
                session.delete(employee);

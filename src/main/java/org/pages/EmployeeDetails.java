@@ -23,6 +23,8 @@ public class EmployeeDetails {
     private LoginService loginService;
 
     void setupRender() {
+        //  is a lifecycle method in Tapestry that runs before the page renders.
+        // Ensuring employee is retrieved properly before rendering
         loggedInEmployee = loginService.getLoggedInEmployee(); // Get logged-in user
     }
 

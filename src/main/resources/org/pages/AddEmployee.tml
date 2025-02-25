@@ -13,7 +13,7 @@
     <p>Date of Birth: <t:datefield t:id="dateOfBirth" value="dateOfBirth" format="yyyy-MM-dd" /></p>
 
     <p>Gender:
-        <t:select t:id="genderSelect" value="selectedGender" model="literal:Male,Female" />
+        <t:select t:id="genderSelect" value="selectedGender" model="literal:Male,Female,Other" />
     </p>
 
     <p>Role:

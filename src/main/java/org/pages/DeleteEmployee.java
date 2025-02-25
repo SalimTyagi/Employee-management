@@ -15,6 +15,8 @@ public class DeleteEmployee {
     private boolean deleted;
 
     void setupRender() {
+        // is a lifecycle method in Tapestry that runs before the page renders.
+        // Ensuring employee is deleted properly
         if (employeeId > 0) {
             employeeService.delete(employeeId);
             deleted = true;

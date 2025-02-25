@@ -16,7 +16,6 @@ import org.data.services.EmployeeService;
 import org.data.services.RoleService;
 import org.data.services.PermissionService;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -61,8 +60,9 @@ public class EditEmployee {
     @Component
     private Select genderSelect;
 
-    // Ensuring employee is retrieved properly before rendering
     void setupRender() {
+        //  is a lifecycle method in Tapestry that runs before the page renders.
+        // Ensuring employee is retrieved properly before rendering
         availableRoles = roleService.findAllRoles(); // Load all available roles
 
         if (employeeId > 0) {
@@ -81,12 +81,16 @@ public class EditEmployee {
         }
     }
     public void onActivate(Integer employeeId) {
+        // method that runs when the page is activated
+        // Gets parameters from the URL, Loads data based on the parameter before the page renders.
         if (employeeId != null) {
             this.employeeId = employeeId;
             employee = employeeService.findEmployeeById(employeeId);
         }
     }
     public int onPassivate() {
+        // is used to store data in the URL when navigating to a page.
+        //when you refresh, bookmark, or share the link, the data (like an employee ID) is not lost.
         return employeeId;
     }
 
